@@ -2,101 +2,150 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Jarvis Dashboard</title>
+  <title>Jarvis — Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
+    /* APPLE-GRADE TYPOGRAPHY & LAYOUT */
     html, body {
       height: 100%;
       margin: 0;
       padding: 0;
-      background: linear-gradient(135deg, #f8fafc 0%, #e6e6e6 100%);
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-      color: #222;
-      min-height: 100vh;
+      background: #fbfbfd; /* Apple's signature off-white */
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+      color: #1d1d1f;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
+
+    /* APPLE'S FROSTED GLASS CONTAINER */
     .container {
-      max-width: 420px;
-      margin: 60px auto 0;
-      padding: 36px 24px 32px 24px;
-      background: rgba(255,255,255,0.85);
-      border-radius: 28px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.10), 0 1.5px 5px rgba(0,0,0,0.08);
-      backdrop-filter: blur(6px);
+      width: 100%;
+      max-width: 480px;
+      margin: 80px auto;
+      padding: 48px 32px;
+      background: rgba(251, 251, 253, 0.8);
+      border-radius: 32px;
+      box-shadow: 
+        0 4px 30px rgba(0, 0, 0, 0.025),
+        0 0.5px 1px rgba(0, 0, 0, 0.05),
+        inset 0 1px 1px rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
       text-align: center;
     }
+
+    /* APPLE'S ICON DESIGN LANGUAGE */
     .logo {
-      width: 64px;
-      height: 64px;
-      margin-bottom: 18px;
-      border-radius: 15px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-      background: linear-gradient(140deg, #eaeaea 60%, #f5f5f5 100%);
-      display: inline-flex;
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 24px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, #f5f5f7 0%, #e8e8ed 100%);
+      display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 38px;
-      color: #555;
-      font-weight: 700;
-      letter-spacing: -3px;
+      font-size: 42px;
+      color: #1d1d1f;
+      font-weight: 500;
+      box-shadow: 
+        0 4px 20px rgba(0, 0, 0, 0.03),
+        inset 0 1px 1px rgba(255, 255, 255, 0.7);
       user-select: none;
     }
+
+    /* STEVE JOBS-WORTHY HEADLINES */
     h1 {
-      font-size: 2.4em;
-      margin-bottom: 0.5em;
-      font-weight: 700;
-      letter-spacing: -1px;
-      color: #222;
+      font-size: 32px;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      margin: 0 0 8px 0;
+      color: #1d1d1f;
+      line-height: 1.1;
     }
+
     .subtitle {
-      font-size: 1.18em;
-      color: #888;
-      margin-bottom: 2.4em;
-      font-weight: 500;
-      letter-spacing: 0.02em;
-    }
-    .card {
-      background: rgba(246,246,248,0.75);
-      border-radius: 20px;
-      box-shadow: 0 1.5px 5px rgba(0,0,0,0.04);
-      padding: 22px 18px 16px 18px;
-      margin-bottom: 24px;
-      text-align: left;
-      font-size: 1.08em;
-      color: #444;
-      transition: box-shadow .15s;
-    }
-    .card:last-child { margin-bottom: 0; }
-    .card:hover {
-      box-shadow: 0 4px 18px rgba(0,0,0,0.08);
-    }
-    @media (max-width: 500px) {
-      .container { margin-top: 28px; padding: 18px 4vw 14px 4vw; }
-      h1 { font-size: 2em; }
-    }
-    .footer {
-      margin-top: 30px;
-      color: #aaa;
-      font-size: 0.97em;
+      font-size: 17px;
+      color: #86868b;
+      margin-bottom: 36px;
+      font-weight: 400;
       letter-spacing: 0.01em;
+      line-height: 1.4;
+    }
+
+    /* APPLE'S CARDS (MACBOOK AIR-INSPIRED) */
+    .card {
+      background: rgba(251, 251, 253, 0.6);
+      border-radius: 20px;
+      padding: 24px;
+      margin-bottom: 16px;
+      text-align: left;
+      font-size: 17px;
+      color: #515154;
+      border: 1px solid rgba(0, 0, 0, 0.02);
+      box-shadow: 
+        0 4px 20px rgba(0, 0, 0, 0.015),
+        inset 0 1px 1px rgba(255, 255, 255, 0.7);
+      transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
+
+    .card:hover {
+      transform: translateY(-1px);
+      box-shadow: 
+        0 8px 30px rgba(0, 0, 0, 0.03),
+        inset 0 1px 1px rgba(255, 255, 255, 0.7);
+    }
+
+    .card b {
+      color: #1d1d1f;
+      font-weight: 600;
+    }
+
+    /* STATUS INDICATOR (APPLE WATCH-INSPIRED) */
+    .status {
+      color: #34c759 !important;
+      font-weight: 500;
+    }
+
+    /* FOOTER (APPLE'S SIGNATURE SUBTLETY) */
+    .footer {
+      margin-top: 40px;
+      color: #86868b;
+      font-size: 13px;
+      letter-spacing: 0.01em;
+      line-height: 1.5;
+    }
+
+    /* RESPONSIVE (LIKE APPLE.COM) */
+    @media (max-width: 500px) {
+      .container {
+        margin: 40px auto;
+        padding: 36px 24px;
+        border-radius: 28px;
+      }
+      h1 { font-size: 28px; }
     }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="logo">🤖</div>
-    <h1>Jarvis Dashboard</h1>
-    <div class="subtitle">A dashboard experience, reimagined.<br>Welcome, <b>aj2nd</b>.</div>
+    <h1>Jarvis</h1>
+    <div class="subtitle">Intelligence, refined.<br>Welcome back, <b>aj2nd</b>.</div>
+    
     <div class="card">
-      <b>Status:</b> <span style="color:#3ebb61">Online</span><br>
-      <b>Next step:</b> Add widgets or connect your chatbot!
+      <b>Status:</b> <span class="status">Operational</span><br>
+      <b>System:</b> Ready for integration
     </div>
+    
     <div class="card">
-      <b>Tip:</b> This dashboard is ready for more features.<br>
-      Try adding charts, cards, or your chat assistant below.
+      <b>Tip:</b> This dashboard adapts to your workflow.<br>
+      Add custom modules or connect services.
     </div>
+    
     <div class="footer">
-      Designed with love. Inspired by Apple.<br>
-      <b>Jarvis</b> &copy; 2025
+      Designed in California<br>
+      <b>Jarvis OS</b> &copy; 2025
     </div>
   </div>
 </body>
