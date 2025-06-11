@@ -1,563 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>J.A.R.V.I.S. // QUANTUM DASHBOARD</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    /* === STARK INDUSTRIES × APPLE DESIGN SYSTEM === */
-    :root {
-      --stark-red: #ff2d20;
-      --stark-gold: #f5d90a;
-      --apple-light: #f5f5f7;
-      --apple-dark: #1d1d1f;
-      --hud-blue: #00a2ff;
-      --quantum-purple: #8a2be2;
-    }
-    
-    body {
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      background: 
-        radial-gradient(circle at 20% 70%, rgba(138, 43, 226, 0.08) 0%, transparent 30%),
-        linear-gradient(145deg, #0a0a0c 0%, #1a1a1e 100%);
-      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-      color: var(--apple-light);
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-
-    .container {
-      max-width: 640px;
-      margin: 5vh auto;
-      padding: 48px 36px;
-      background: rgba(29, 29, 31, 0.68);
-      border-radius: 28px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow:
-        0 0 0 1px rgba(255, 255, 255, 0.03),
-        0 12px 48px rgba(0, 0, 0, 0.4),
-        inset 0 0 24px rgba(0, 163, 255, 0.12);
-      backdrop-filter: blur(24px);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      animation: quantumFadeIn 1.2s cubic-bezier(0.19, 1, 0.22, 1);
-    }
-
-    @keyframes quantumFadeIn {
-      from { opacity: 0; transform: translateY(40px) scale(0.98); }
-      to   { opacity: 1; transform: none; }
-    }
-
-    .container::before {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      background: linear-gradient(45deg, 
-        var(--stark-red) 0%, 
-        var(--quantum-purple) 50%, 
-        transparent 80%);
-      z-index: -1;
-      filter: blur(12px);
-      opacity: 0.25;
-    }
-
-    .logo {
-      width: 88px;
-      height: 88px;
-      margin: 0 auto 24px;
-      border-radius: 24px;
-      background: linear-gradient(145deg, 
-        rgba(255, 45, 32, 0.15) 0%, 
-        rgba(138, 43, 226, 0.25) 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 48px;
-      color: var(--hud-blue);
-      box-shadow:
-        0 0 24px rgba(0, 162, 255, 0.25),
-        inset 0 1px 1px rgba(255, 255, 255, 0.15);
-      border: 1px solid rgba(0, 162, 255, 0.2);
-      user-select: none;
-      animation: pulse 6s infinite alternate;
-    }
-
-    @keyframes pulse {
-      0%   { box-shadow: 0 0 24px rgba(0, 162, 255, 0.25); }
-      50%  { box-shadow: 0 0 36px rgba(138, 43, 226, 0.3); }
-      100% { box-shadow: 0 0 24px rgba(255, 45, 32, 0.25); }
-    }
-
-    h1 {
-      font-size: 42px;
-      font-weight: 700;
-      letter-spacing: -0.8px;
-      margin: 0 0 8px 0;
-      background: linear-gradient(90deg, #fff 0%, var(--hud-blue) 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      line-height: 1.1;
-    }
-
-    .subtitle {
-      font-size: 18px;
-      color: rgba(255, 255, 255, 0.7);
-      margin-bottom: 36px;
-      font-weight: 400;
-      letter-spacing: 0.03em;
-      line-height: 1.5;
-    }
-
-    .subtitle b {
-      color: var(--stark-gold);
-      font-weight: 500;
-    }
-
-    .datetime {
-      color: rgba(255, 255, 255, 0.6);
-      font-size: 16px;
-      font-weight: 500;
-      text-align: right;
-      margin-bottom: 24px;
-      margin-top: -36px;
-      letter-spacing: 0.03em;
-    }
-
-    .business-summary {
-      background: rgba(35, 35, 38, 0.6);
-      border-radius: 24px;
-      box-shadow: 
-        0 4px 24px rgba(0, 0, 0, 0.2),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-      padding: 28px 24px;
-      margin-bottom: 32px;
-      text-align: left;
-      font-size: 17px;
-      color: rgba(255, 255, 255, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      animation: cardFadeIn 1.4s;
-    }
-
-    @keyframes cardFadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: none; }
-    }
-
-    .business-summary-title {
-      font-size: 20px;
-      font-weight: 650;
-      color: white;
-      margin-bottom: 12px;
-      letter-spacing: 0.02em;
-      background: linear-gradient(90deg, white, var(--stark-gold));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .business-summary div {
-      margin-bottom: 8px;
-    }
-
-    .business-summary b {
-      color: white;
-      font-weight: 600;
-    }
-
-    .status {
-      color: var(--hud-blue) !important;
-      text-shadow: 0 0 12px rgba(0, 162, 255, 0.4);
-    }
-
-    .services-title, .includes-title {
-      font-size: 22px;
-      font-weight: 650;
-      margin: 36px 0 18px 0;
-      color: white;
-      letter-spacing: 0.01em;
-      text-align: left;
-      background: linear-gradient(90deg, white, var(--apple-light));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .services-list {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      margin-bottom: 28px;
-    }
-
-    .service-card {
-      background: rgba(40, 40, 43, 0.7);
-      border-radius: 20px;
-      padding: 20px 24px;
-      text-align: left;
-      font-size: 17px;
-      color: rgba(255, 255, 255, 0.9);
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 
-        0 4px 20px rgba(0, 0, 0, 0.2),
-        inset 0 0 0 1px rgba(0, 163, 255, 0.05);
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
-      position: relative;
-      overflow: hidden;
-      animation: cardFadeIn 1.4s;
-    }
-
-    .service-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 
-        0 8px 32px rgba(0, 0, 0, 0.3),
-        0 0 0 1px rgba(0, 163, 255, 0.1);
-    }
-
-    .service-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 4px;
-      height: 100%;
-      background: linear-gradient(to bottom, var(--stark-red), var(--quantum-purple));
-    }
-
-    .service-icon {
-      font-size: 24px;
-      margin-right: 12px;
-      z-index: 1;
-    }
-
-    .includes-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-bottom: 32px;
-    }
-
-    .include-item {
-      background: rgba(45, 45, 48, 0.6);
-      border-radius: 16px;
-      padding: 14px 18px;
-      font-size: 16px;
-      color: rgba(255, 255, 255, 0.85);
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      font-weight: 500;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
-      animation: cardFadeIn 1.6s;
-    }
-
-    .include-icon {
-      font-size: 20px;
-      margin-right: 8px;
-      color: var(--hud-blue);
-    }
-
-    .chatbot-container {
-      background: rgba(35, 35, 38, 0.7);
-      border-radius: 26px;
-      box-shadow: 
-        0 8px 32px rgba(0, 0, 0, 0.3),
-        inset 0 0 0 1px rgba(0, 163, 255, 0.1);
-      padding: 24px;
-      margin: 48px 0 24px 0;
-      animation: cardFadeIn 1.8s;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .chatbot-title {
-      font-size: 20px;
-      font-weight: 650;
-      margin-bottom: 16px;
-      color: white;
-      letter-spacing: 0.01em;
-      text-align: left;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .chatbot-title::before {
-      content: '⚡';
-      font-size: 24px;
-      color: var(--stark-gold);
-    }
-
-    .chat-messages {
-      max-height: 240px;
-      overflow-y: auto;
-      margin-bottom: 16px;
-      padding-right: 8px;
-    }
-
-    .chat-message {
-      margin-bottom: 14px;
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      line-height: 1.5;
-    }
-
-    .chat-message.user .msg-bubble {
-      background: linear-gradient(135deg, rgba(0, 162, 255, 0.2) 0%, rgba(138, 43, 226, 0.2) 100%);
-      color: white;
-      border: 1px solid rgba(0, 162, 255, 0.3);
-    }
-
-    .chat-message.bot .msg-bubble {
-      background: rgba(50, 50, 55, 0.6);
-      color: rgba(255, 255, 255, 0.9);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .msg-bubble {
-      border-radius: 18px;
-      padding: 12px 18px;
-      max-width: 85%;
-      font-size: 16px;
-      word-break: break-word;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .chat-avatar {
-      font-size: 24px;
-      width: 36px;
-      height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .chat-message.user .chat-avatar {
-      color: var(--hud-blue);
-    }
-
-    .chat-message.bot .chat-avatar {
-      color: var(--stark-gold);
-    }
-
-    .chatbot-input-row {
-      display: flex;
-      gap: 10px;
-      margin-top: 16px;
-    }
-
-    .chatbot-input {
-      flex: 1;
-      padding: 14px 18px;
-      border-radius: 14px;
-      border: none;
-      font-size: 16px;
-      outline: none;
-      background: rgba(50, 50, 55, 0.8);
-      color: white;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
-    }
-
-    .chatbot-input::placeholder {
-      color: rgba(255, 255, 255, 0.4);
-    }
-
-    .chatbot-input:focus {
-      border: 1px solid var(--hud-blue);
-      box-shadow: 0 0 0 2px rgba(0, 162, 255, 0.2);
-    }
-
-    .chatbot-send {
-      background: linear-gradient(135deg, var(--stark-red) 0%, var(--quantum-purple) 100%);
-      color: white;
-      border: none;
-      border-radius: 14px;
-      padding: 0 24px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      box-shadow: 0 2px 12px rgba(255, 45, 32, 0.3);
-    }
-
-    .chatbot-send:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 16px rgba(255, 45, 32, 0.4);
-    }
-
-    .chatbot-send:active {
-      transform: translateY(0);
-    }
-
-    .footer {
-      margin-top: 48px;
-      color: rgba(255, 255, 255, 0.4);
-      font-size: 14px;
-      letter-spacing: 0.03em;
-      line-height: 1.6;
-    }
-
-    .footer b {
-      background: linear-gradient(90deg, var(--stark-gold), var(--stark-red));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      font-weight: 600;
-    }
-
-    @media (max-width: 700px) {
-      .container {
-        margin: 24px 16px;
-        padding: 36px 24px;
-        border-radius: 24px;
-      }
-      h1 { font-size: 36px; }
-      .service-card, .include-item { padding: 16px 20px; }
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background:
-        linear-gradient(rgba(0, 162, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 162, 255, 0.03) 1px, transparent 1px);
-      background-size: 60px 60px;
-      z-index: -1;
-      opacity: 0.15;
-      pointer-events: none;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jarvis Ultimate Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="dashboard.css" />
 </head>
 <body>
-  <div class="container">
-    <div class="logo">J</div>
-    <h1>J.A.R.V.I.S. QUANTUM</h1>
-    <div class="subtitle">Stark-Apple Financial Intelligence System<br>Online, <b>aj2nd</b>. Ready to assist.</div>
-    <div class="datetime" id="datetime"></div>
-    
-    <div class="business-summary">
-      <div class="business-summary-title">BUSINESS QUANTUM ANALYSIS</div>
-      <div><b>Client:</b> aj2nd &nbsp; <b>Status:</b> <span class="status">ACTIVE</span></div>
-      <div><b>Subscription:</b> PLATINUM SUITE</div>
-      <div><b>Last Sync:</b> QUANTUM ENCRYPTED @ MAY 2025</div>
-      <div><b>AI Advisor:</b> J.A.R.V.I.S. v12.5</div>
+  <nav class="navbar glass">
+    <div class="navbar-logo">
+      <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="Jarvis Logo" class="logo-img" />
+      <span>Jarvis Ultimate Dashboard</span>
     </div>
-
-    <div class="services-title">SERVICES ONLINE</div>
-    <div class="services-list">
-      <div class="service-card"><span class="service-icon">🏢</span>Corporate Tax Registration</div>
-      <div class="service-card"><span class="service-icon">📝</span>Corporate Tax Filing</div>
-      <div class="service-card"><span class="service-icon">💼</span>VAT Registration</div>
-      <div class="service-card"><span class="service-icon">📆</span>VAT Filing <span style="color:rgba(255,255,255,0.5);">(4x/year)</span></div>
-      <div class="service-card"><span class="service-icon">🧑‍💼</span>Comprehensive Tax Advisory</div>
-      <div class="service-card"><span class="service-icon">📚</span>Full Accounting Services</div>
-      <div class="service-card"><span class="service-icon">📅</span>Monthly Reporting</div>
+    <div class="navbar-controls">
+      <button id="theme-toggle" title="Toggle dark/light mode">🌗</button>
+      <span class="navbar-user">👤 Welcome, User</span>
     </div>
-    
-    <div class="includes-title">INCLUDED IN SUITE</div>
-    <div class="includes-list">
-      <div class="include-item"><span class="include-icon">🗃️</span>Weekly Bookkeeping</div>
-      <div class="include-item"><span class="include-icon">⚖️</span>Tax & Accounting Advisory</div>
-      <div class="include-item"><span class="include-icon">🏦</span>Bank Account Reconciliation <span style="color:rgba(255,255,255,0.5);">(UAE Central Bank Rate)</span></div>
-      <div class="include-item"><span class="include-icon">📊</span>Monthly P&amp;L Report</div>
-      <div class="include-item"><span class="include-icon">📈</span>Monthly YTD Report</div>
-      <div class="include-item"><span class="include-icon">🔍</span>Business Performance Report</div>
-    </div>
-
-    <div class="chatbot-container" id="chatbot">
-      <div class="chatbot-title">QUANTUM CHAT ASSISTANT</div>
-      <div class="chat-messages" id="chat-messages">
-        <div class="chat-message bot"><span class="chat-avatar">J</span><div class="msg-bubble">Good day, sir. I am J.A.R.V.I.S. How may I assist with your financial operations today?</div></div>
+  </nav>
+  <main class="dashboard-container">
+    <section class="dashboard-grid">
+      <div class="card card-large glass">
+        <h2><span class="emoji">🤖</span> AI Chat</h2>
+        <div id="chat-log" class="chat-log"></div>
+        <div id="typing-indicator" class="typing-indicator" style="display:none;">
+          <span></span><span></span><span></span>
+        </div>
+        <form id="chat-form" class="chat-form" autocomplete="off">
+          <input type="text" id="chat-input" placeholder="Ask Jarvis anything..." autocomplete="off" required />
+          <button type="submit">Send</button>
+        </form>
       </div>
-      <form class="chatbot-input-row" id="chat-form" autocomplete="off">
-        <input class="chatbot-input" id="chat-input" type="text" placeholder="Type command..." required>
-        <button class="chatbot-send" type="submit">→</button>
-      </form>
-    </div>
-
-    <div class="footer">
-      STARK INDUSTRIES × APPLE ADVANCED SYSTEMS<br>
-      <b>J.A.R.V.I.S. QUANTUM OS</b> © 2025 | CONFIDENTIAL
-    </div>
-  </div>
-  <script>
-    // === HOLOGRAPHIC DATETIME ===
-    function updateDateTime() {
-      const now = new Date();
-      const opts = { 
-        weekday: 'short', 
-        month: 'short', 
-        day: 'numeric', 
-        hour: '2-digit', 
-        minute: '2-digit',
-        hour12: false
-      };
-      document.getElementById('datetime').textContent = 
-        now.toLocaleString('en-US', opts).toUpperCase() + ' // QUANTUM SYNC';
-    }
-    setInterval(updateDateTime, 1000); 
-    updateDateTime();
-
-    // === J.A.R.V.I.S. CHAT INTERFACE (AI-ENABLED) ===
-    const messages = document.getElementById('chat-messages');
-    const chatForm = document.getElementById('chat-form');
-    const chatInput = document.getElementById('chat-input');
-    
-    chatForm.addEventListener('submit', async function(e){
-      e.preventDefault();
-      const userMsg = chatInput.value.trim();
-      if(!userMsg) return;
-      
-      // Add user message
-      appendMessage('user', userMsg);
-      chatInput.value = '';
-      
-      // Show "Processing..." placeholder
-      const thinking = appendMessage('bot', "Processing...");
-      
-      try {
-        // Send message to backend /api/chat
-        const res = await fetch('/api/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: userMsg })
-        });
-        const data = await res.json();
-        messages.removeChild(thinking);
-        appendMessage('bot', data.reply);
-      } catch (err) {
-        messages.removeChild(thinking);
-        appendMessage('bot', "J.A.R.V.I.S. is currently offline. Please try again later.");
-      }
-    });
-
-    function appendMessage(role, text) {
-      const wrap = document.createElement('div');
-      wrap.className = `chat-message ${role}`;
-      wrap.innerHTML = `
-        <span class="chat-avatar">${role === 'user' ? '🧑' : 'J'}</span>
-        <div class="msg-bubble">${text}</div>
-      `;
-      messages.appendChild(wrap);
-      messages.scrollTop = messages.scrollHeight;
-      return wrap;
-    }
-  </script>
+      <div class="card glass animated-card" id="stats-card">
+        <h3><span class="emoji">📊</span> Quick Stats</h3>
+        <ul class="stats-list">
+          <li><span class="stat-label">Sessions:</span> <span class="stat-value" id="stat-sessions">12</span></li>
+          <li><span class="stat-label">Queries Today:</span> <span class="stat-value" id="stat-queries">34</span></li>
+          <li><span class="stat-label">Active Users:</span> <span class="stat-value" id="stat-users">4</span></li>
+        </ul>
+      </div>
+      <div class="card glass animated-card" id="activity-card">
+        <h3><span class="emoji">🕒</span> Recent Activity</h3>
+        <ul class="activity-list" id="activity-list">
+          <li>Logged in at 9:05AM</li>
+          <li>Asked about tax rates</li>
+          <li>Exported report</li>
+        </ul>
+      </div>
+      <div class="card glass animated-card" id="tips-card">
+        <h3><span class="emoji">💡</span> Tips</h3>
+        <ul class="tips-list">
+          <li>Try asking Jarvis about business regulations.</li>
+          <li>Use the dashboard navigation for quick access.</li>
+          <li>Toggle dark/light mode for your comfort.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <span>&copy; 2025 Jarvis | Designed by GitHub Copilot Ultimate Mode 🚀</span>
+  </footer>
+  <script src="dashboard.js"></script>
 </body>
 </html>
