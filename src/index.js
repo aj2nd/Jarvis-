@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const { Configuration, OpenAIApi } = require('openai');
+const OpenAI = require('openai');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -11,15 +11,15 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.use(bodyParser.json());
 
 // === OpenAI Setup ===
-const openai = new OpenAIApi(new Configuration({
+const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
-}));
+});
 
 // === AI Chat Endpoint ===
 app.post('/api/chat', async (req, res) => {
   try {
     const { message } = req.body;
-    const completion = await openai.createChatCompletion({
+    const completion = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [
         { role: "system", content: "You are Jarvis, an expert business/accounting/tax assistant." },
@@ -28,7 +28,7 @@ app.post('/api/chat', async (req, res) => {
       max_tokens: 256,
       temperature: 0.7,
     });
-    res.json({ reply: completion.data.choices[0].message.content.trim() });
+    res.json({ reply: completion.choices[0].message.content.trim() });
   } catch (err) {
     res.json({ reply: "Sorry, I'm having trouble connecting to AI right now." });
   }
