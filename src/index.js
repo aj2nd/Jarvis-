@@ -30,6 +30,7 @@ app.post('/api/chat', async (req, res) => {
     });
     res.json({ reply: completion.choices[0].message.content.trim() });
   } catch (err) {
+    console.error("OpenAI API error:", err); // Improved error logging for Render logs
     res.json({ reply: "Sorry, I'm having trouble connecting to AI right now." });
   }
 });
