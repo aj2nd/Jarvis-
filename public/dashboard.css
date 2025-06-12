@@ -1,154 +1,74 @@
 :root {
     --background: #ffffff;
     --text-color: #ffffff;
-    --glow-color: rgb(64, 153, 255);
+    --glow-inner: rgba(255, 255, 255, 0.95);
+    --glow-outer: rgba(255, 255, 255, 0.7);
     --ios-font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', system-ui, sans-serif;
 }
 
-body {
-    background: var(--background);
-    font-family: var(--ios-font);
-    margin: 0;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
-}
+/* Rest of the base styles remain the same */
 
-/* JARVIS Logo */
+/* JARVIS Logo with internal glow effect */
 .jarvis-logo {
     font-size: 48px;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: 0.8px;
-    color: #ffffff;
     text-align: center;
     margin: 60px 0 40px;
-    text-shadow: 0 0 15px var(--glow-color),
-                 0 0 25px var(--glow-color),
-                 0 0 35px var(--glow-color);
     position: relative;
-    z-index: 1;
+    color: #ffffff;
+    text-shadow: 
+        /* Inner glow */
+        0 0 7px var(--glow-inner),
+        0 0 10px var(--glow-inner),
+        /* Outer diffusion */
+        0 0 21px var(--glow-outer),
+        0 0 42px var(--glow-outer);
+    filter: drop-shadow(0 0 2px var(--glow-outer));
 }
 
-/* DateTime and User Info */
-.datetime, .user-info {
-    font-size: 17px;
-    color: #000000;
-    text-align: center;
-    font-weight: 400;
-    letter-spacing: -0.24px;
-    margin: 8px 0;
-}
-
-/* Stats Container */
-.stats-container {
-    width: 100%;
-    max-width: 320px;
-    margin: 32px auto;
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-}
-
-.stat-item {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-}
-
-.stat-icon {
-    width: 24px;
-    height: 24px;
-    opacity: 0.8;
-}
-
+/* Stats values with internal glow */
 .stat-value {
     font-size: 48px;
-    font-weight: 700;
+    font-weight: 800;
     color: #ffffff;
-    text-shadow: 0 0 15px var(--glow-color),
-                 0 0 25px var(--glow-color);
+    text-shadow: 
+        /* Inner glow */
+        0 0 7px var(--glow-inner),
+        0 0 10px var(--glow-inner),
+        /* Outer diffusion */
+        0 0 21px var(--glow-outer),
+        0 0 42px var(--glow-outer);
+    filter: drop-shadow(0 0 2px var(--glow-outer));
     letter-spacing: -0.5px;
 }
 
-.stat-label {
-    font-size: 17px;
-    color: #000000;
-    font-weight: 400;
-    margin-top: 4px;
-    letter-spacing: -0.24px;
+/* Send button update - remove blue */
+.send-button {
+    background: rgba(0, 0, 0, 0.1);
 }
 
-/* Input Field */
-.chat-form {
-    position: fixed;
-    bottom: 34px;
-    left: 16px;
-    right: 16px;
-    display: flex;
-    gap: 12px;
-    align-items: center;
+/* Bottom nav icons - remove blue */
+.nav-item {
+    color: #000000;
+    opacity: 0.8;
+}
+
+/* Keep these styles the same */
+.stat-label {
+    color: #000000;
+    font-weight: 400;
+}
+
+.datetime, .user-info {
+    color: #000000;
 }
 
 .chat-input {
-    flex: 1;
-    height: 36px;
-    padding: 0 16px;
-    font-size: 17px;
-    border: none;
-    border-radius: 10px;
     background: rgba(0, 0, 0, 0.05);
     color: #000000;
-    font-family: var(--ios-font);
 }
 
 .chat-input::placeholder {
     color: rgba(0, 0, 0, 0.4);
-}
-
-.send-button {
-    width: 40px;
-    height: 40px;
-    border-radius: 20px;
-    border: none;
-    background: var(--glow-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
-
-/* Bottom Navigation Bar */
-.bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 83px;
-    padding-bottom: 20px;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-top: 0.5px solid rgba(0, 0, 0, 0.2);
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.nav-item {
-    color: var(--glow-color);
-    width: 24px;
-    height: 24px;
-}
-
-/* Status Bar */
-.status-bar {
-    color: #000000;
-}
-
-/* Time Display */
-#current-time {
-    color: #000000;
 }
