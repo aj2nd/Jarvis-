@@ -27,7 +27,18 @@
         </div>
       </div>
     </div>
-    <!-- Add more dashboard content here -->
+    <div class="dashboard-card">
+      <h2>Chat</h2>
+      <div id="chat-log" class="chat-log"></div>
+      <div id="typing-indicator" class="typing-indicator" style="display:none;">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      </div>
+      <form id="chat-form" autocomplete="off">
+        <input id="chat-input" class="chat-input" type="text" placeholder="Type your message..." autocomplete="off" />
+        <button type="submit" class="chat-send-btn">Send</button>
+      </form>
+    </div>
+    <!-- Add more dashboard content/cards as needed -->
   </div>
   <script src="dashboard-theme.js"></script>
 </body>
