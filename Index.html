@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jarvis Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="jarvis-logo">JARVIS</div>
+        
+        <div class="chat-container">
+            <div id="chat-log" class="chat-log"></div>
+            <div id="typing-indicator" class="typing-indicator" style="display: none;">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            </div>
+            <form id="chat-form">
+                <input type="text" id="chat-input" class="chat-input" placeholder="Ask Jarvis something...">
+            </form>
+        </div>
+
+        <div class="stats-container">
+            <div class="stat-card animated-card">
+                <div class="stat-value" id="stat-sessions">0</div>
+                <div class="stat-label">Active Sessions</div>
+            </div>
+            <div class="stat-card animated-card">
+                <div class="stat-value" id="stat-queries">0</div>
+                <div class="stat-label">Queries Processed</div>
+            </div>
+            <div class="stat-card animated-card">
+                <div class="stat-value" id="stat-users">0</div>
+                <div class="stat-label">Connected Users</div>
+            </div>
+        </div>
+    </div>
+    <script src="dashboard.js"></script>
+</body>
+</html>
