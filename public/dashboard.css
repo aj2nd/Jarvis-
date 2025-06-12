@@ -1,9 +1,8 @@
 :root {
     --background: #ffffff;
-    --text-color: #000000;
+    --text-color: #ffffff;
     --glow-color: rgb(64, 153, 255);
     --ios-font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', system-ui, sans-serif;
-    --input-background: rgba(118, 118, 128, 0.12);
 }
 
 body {
@@ -18,72 +17,29 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* Status Bar */
-.status-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 44px;
-    padding: 0 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 15px;
-    font-weight: 600;
-    z-index: 1000;
-}
-
 /* JARVIS Logo */
 .jarvis-logo {
     font-size: 48px;
     font-weight: 700;
     letter-spacing: 0.8px;
-    color: #000000;
+    color: #ffffff;
     text-align: center;
     margin: 60px 0 40px;
+    text-shadow: 0 0 15px var(--glow-color),
+                 0 0 25px var(--glow-color),
+                 0 0 35px var(--glow-color);
     position: relative;
-    text-shadow: 0 0 0 transparent;
-}
-
-.jarvis-logo::after {
-    content: 'JARVIS';
-    position: absolute;
-    left: 0;
-    right: 0;
-    color: #000000;
     z-index: 1;
 }
 
-.jarvis-logo::before {
-    content: 'JARVIS';
-    position: absolute;
-    left: 0;
-    right: 0;
-    filter: blur(12px);
-    color: var(--glow-color);
-    z-index: 0;
-}
-
-/* DateTime Display */
-.datetime {
+/* DateTime and User Info */
+.datetime, .user-info {
     font-size: 17px;
     color: #000000;
     text-align: center;
-    margin: 8px 0;
     font-weight: 400;
     letter-spacing: -0.24px;
-}
-
-/* User Info */
-.user-info {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin: 16px 0;
-    font-size: 17px;
-    color: #000000;
+    margin: 8px 0;
 }
 
 /* Stats Container */
@@ -111,8 +67,9 @@ body {
 .stat-value {
     font-size: 48px;
     font-weight: 700;
-    color: #000000;
-    text-shadow: 0 0 12px rgba(64, 153, 255, 0.6);
+    color: #ffffff;
+    text-shadow: 0 0 15px var(--glow-color),
+                 0 0 25px var(--glow-color);
     letter-spacing: -0.5px;
 }
 
@@ -133,7 +90,6 @@ body {
     display: flex;
     gap: 12px;
     align-items: center;
-    padding: 0 8px;
 }
 
 .chat-input {
@@ -143,14 +99,25 @@ body {
     font-size: 17px;
     border: none;
     border-radius: 10px;
-    background: var(--input-background);
+    background: rgba(0, 0, 0, 0.05);
     color: #000000;
     font-family: var(--ios-font);
 }
 
 .chat-input::placeholder {
-    color: rgba(60, 60, 67, 0.6);
-    font-weight: 400;
+    color: rgba(0, 0, 0, 0.4);
+}
+
+.send-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    border: none;
+    background: var(--glow-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
 
 /* Bottom Navigation Bar */
@@ -161,10 +128,10 @@ body {
     right: 0;
     height: 83px;
     padding-bottom: 20px;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-top: 0.5px solid rgba(0, 0, 0, 0.3);
+    border-top: 0.5px solid rgba(0, 0, 0, 0.2);
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -176,18 +143,12 @@ body {
     height: 24px;
 }
 
-/* iOS-style animations */
-@keyframes appear {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* Status Bar */
+.status-bar {
+    color: #000000;
 }
 
-.animate-in {
-    animation: appear 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+/* Time Display */
+#current-time {
+    color: #000000;
 }
