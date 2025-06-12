@@ -1,60 +1,141 @@
 :root {
-    /* Updated Theme Colors to match OPPO-style blue glow */
-    --primary-glow: #4486ff;
-    --secondary-glow: #00b3ff;
-    --background-dark: #1a1a1a;
-    --background-light: #ffffff;
-    --text-primary-dark: #ffffff;
-    --text-primary-light: #1a1a1a;
-    --card-bg-dark: rgba(255, 255, 255, 0.05);
-    --card-bg-light: rgba(0, 0, 0, 0.05);
-    --input-bg-dark: rgba(255, 255, 255, 0.1);
-    --input-bg-light: rgba(0, 0, 0, 0.1);
-    --shadow-color-dark: rgba(68, 134, 255, 0.2);
-    --shadow-color-light: rgba(68, 134, 255, 0.1);
-    
-    /* Animation Durations */
-    --transition-speed: 0.3s;
+    --background: #000000;
+    --text-color: #000000;
+    --glow-color: #4486ff;
+    --input-bg: rgba(255, 255, 255, 0.1);
 }
 
-/* Update the Jarvis logo glow effect */
+body {
+    background: var(--background);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Logo styling */
 .jarvis-logo {
-    font-size: 2.5rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: var(--text-primary);
-    text-shadow: 0 0 10px var(--primary-glow),
-                 0 0 20px var(--primary-glow),
-                 0 0 30px var(--secondary-glow);
+    font-size: 48px;
+    font-weight: bold;
+    color: #000;
+    text-align: center;
+    margin: 20px 0;
+    background: #fff;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 15px var(--glow-color),
+                 0 0 20px var(--glow-color);
+    position: relative;
 }
 
-/* Update the stat values glow effect */
+.jarvis-logo::after {
+    content: 'JARVIS';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: white;
+    -webkit-text-fill-color: white;
+}
+
+/* DateTime and Username */
+.datetime, .username {
+    text-align: right;
+    color: white;
+    font-size: 14px;
+    margin: 5px 0;
+    opacity: 0.8;
+}
+
+/* Stats Section */
+.stats-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
 .stat-value {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    text-shadow: 0 0 10px var(--primary-glow);
+    font-size: 36px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 0 10px var(--glow-color);
 }
 
-/* Update any buttons or interactive elements */
+.stat-label {
+    color: white;
+    font-size: 16px;
+    text-align: right;
+}
+
+.stat-icon {
+    width: 24px;
+    height: 24px;
+    opacity: 0.7;
+}
+
+/* Chat Input */
+.chat-form {
+    position: fixed;
+    bottom: 20px;
+    width: calc(100% - 40px);
+    max-width: 600px;
+    display: flex;
+    gap: 10px;
+}
+
+.chat-input {
+    flex: 1;
+    padding: 12px 20px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    font-size: 16px;
+}
+
+.chat-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
 .send-button {
-    background: var(--primary-glow);
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    border: none;
+    background: var(--glow-color);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.send-button:hover {
-    background: var(--secondary-glow);
+/* Bottom Navigation Bar */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Update typing indicator dots */
-.typing-indicator .dot {
-    background: var(--primary-glow);
-}
-
-/* Update scrollbar */
-::-webkit-scrollbar-thumb {
-    background: var(--primary-glow);
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: var(--secondary-glow);
+/* Remove default input styling */
+input:focus {
+    outline: none;
 }
