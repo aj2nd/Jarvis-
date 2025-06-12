@@ -1,4 +1,4 @@
-// Dark/Light mode toggle with persistence
+// Dark/Light mode toggle with updated theme colors
 const themeToggle = document.getElementById('theme-toggle');
 themeToggle.addEventListener('click', () => {
   if (document.documentElement.getAttribute('data-theme') === 'dark') {
@@ -9,12 +9,13 @@ themeToggle.addEventListener('click', () => {
     localStorage.setItem('jarvis-theme', 'dark');
   }
 });
+
 // On page load: persist theme
 if (localStorage.getItem('jarvis-theme') === 'dark') {
   document.documentElement.setAttribute('data-theme', 'dark');
 }
 
-// Chat with animated typing indicator and error handling
+// Chat functionality with animated typing indicator and error handling
 const chatForm = document.getElementById('chat-form');
 const chatInput = document.getElementById('chat-input');
 const chatLog = document.getElementById('chat-log');
@@ -25,12 +26,12 @@ chatForm.addEventListener('submit', async function(e) {
   const userMsg = chatInput.value.trim();
   if (!userMsg) return;
 
-  // Append user message
-  chatLog.innerHTML += `<div class="chat-message user">You: ${userMsg}</div>`;
+  // Append user message with new styling
+  chatLog.innerHTML += `<div class="chat-message user"><span class="message-content">${userMsg}</span></div>`;
   chatInput.value = '';
   chatLog.scrollTop = chatLog.scrollHeight;
 
-  // Show typing indicator
+  // Show typing indicator with updated styling
   typingIndicator.style.display = "flex";
 
   try {
@@ -41,16 +42,16 @@ chatForm.addEventListener('submit', async function(e) {
     });
     const data = await res.json();
     typingIndicator.style.display = "none";
-    chatLog.innerHTML += `<div class="chat-message ai">JARVIS: ${data.reply || 'No response'}</div>`;
+    chatLog.innerHTML += `<div class="chat-message ai"><span class="message-content">Jarvis: ${data.reply || 'No response'}</span></div>`;
     chatLog.scrollTop = chatLog.scrollHeight;
   } catch (err) {
     typingIndicator.style.display = "none";
-    chatLog.innerHTML += `<div class="chat-message ai" style="color:red;">Error: Unable to connect to AI.</div>`;
+    chatLog.innerHTML += `<div class="chat-message ai error"><span class="message-content">Error: Unable to connect to AI.</span></div>`;
     chatLog.scrollTop = chatLog.scrollHeight;
   }
 });
 
-// Animate stats on load
+// Enhanced stat animations
 function animateValue(id, start, end, duration) {
   const obj = document.getElementById(id);
   let startTimestamp = null;
@@ -64,6 +65,14 @@ function animateValue(id, start, end, duration) {
   };
   window.requestAnimationFrame(step);
 }
+
+// Initialize stat animations
 animateValue('stat-sessions', 0, 12, 900);
 animateValue('stat-queries', 0, 34, 900);
 animateValue('stat-users', 0, 4, 900);
+
+// Enhanced animated card appearances
+document.querySelectorAll('.animated-card').forEach((card, idx) => {
+  card.style.animationDelay = `${0.15 * (idx+1)}s`;
+  card.classList.add('glow-effect');
+});
