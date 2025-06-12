@@ -1,45 +1,92 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="UTF-8">
-  <title>JARVIS Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="dashboard-theme.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jarvis Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
-  <div class="dashboard-container">
-    <div class="logo-jarvis">JARVIS</div>
-    <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">🌓</button>
-    <div class="dashboard-card">
-      <h2>Dashboard Stats</h2>
-      <div class="stats-row">
-        <div class="stat-block">
-          <div id="stat-sessions" class="stat-number">0</div>
-          <div class="stat-label">Sessions</div>
-        </div>
-        <div class="stat-block">
-          <div id="stat-queries" class="stat-number">0</div>
-          <div class="stat-label">Queries</div>
-        </div>
-        <div class="stat-block">
-          <div id="stat-users" class="stat-number">0</div>
-          <div class="stat-label">Users</div>
-        </div>
-      </div>
+    <div class="dashboard-container">
+        <!-- Header Section -->
+        <header class="dashboard-header">
+            <div class="logo-container">
+                <h1 class="jarvis-logo">JARVIS</h1>
+            </div>
+            <div class="user-info">
+                <div class="datetime">
+                    <span id="current-time">2025-06-12 21:48:37</span>
+                    <span class="utc-label">UTC</span>
+                </div>
+                <div class="user-profile">
+                    <span class="username">@aj2nd</span>
+                    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                        <svg class="theme-icon" viewBox="0 0 24 24" width="24" height="24">
+                            <path class="sun" d="M12 3v2M12 19v2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M3 12h2M19 12h2M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/>
+                            <circle class="sun-circle" cx="12" cy="12" r="4"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Dashboard Content -->
+        <main class="dashboard-main">
+            <!-- Stats Section -->
+            <section class="stats-section">
+                <div class="stat-card animated-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="stat-sessions">0</div>
+                        <div class="stat-label">Active Sessions</div>
+                    </div>
+                </div>
+                <div class="stat-card animated-card">
+                    <div class="stat-icon">🔍</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="stat-queries">0</div>
+                        <div class="stat-label">Queries Processed</div>
+                    </div>
+                </div>
+                <div class="stat-card animated-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="stat-users">0</div>
+                        <div class="stat-label">Connected Users</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Chat Interface -->
+            <section class="chat-section">
+                <div class="chat-container">
+                    <div id="chat-log" class="chat-log">
+                        <!-- Messages will be dynamically inserted here -->
+                    </div>
+                    <div id="typing-indicator" class="typing-indicator" style="display: none">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                    <form id="chat-form" class="chat-form">
+                        <input 
+                            type="text" 
+                            id="chat-input" 
+                            class="chat-input" 
+                            placeholder="Ask Jarvis something..."
+                            autocomplete="off"
+                        >
+                        <button type="submit" class="send-button">
+                            <svg viewBox="0 0 24 24" width="24" height="24">
+                                <path d="M2 12l20-9-9 20-2-9-9-2z"/>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </section>
+        </main>
     </div>
-    <div class="dashboard-card">
-      <h2>Chat</h2>
-      <div id="chat-log" class="chat-log"></div>
-      <div id="typing-indicator" class="typing-indicator" style="display:none;">
-        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-      </div>
-      <form id="chat-form" autocomplete="off">
-        <input id="chat-input" class="chat-input" type="text" placeholder="Type your message..." autocomplete="off" />
-        <button type="submit" class="chat-send-btn">Send</button>
-      </form>
-    </div>
-    <!-- Add more dashboard content/cards as needed -->
-  </div>
-  <script src="dashboard-theme.js"></script>
+    <script src="dashboard.js"></script>
 </body>
 </html>
